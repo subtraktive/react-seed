@@ -1,33 +1,32 @@
-var Webpack = require('webpack');
-var path = require('path');
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var buildPath = path.resolve(__dirname, 'public', 'build');
-var bannerPath = path.resolve(__dirname, 'app/banners/', 'entry.js');
-var emailPath = path.resolve(__dirname, 'app/email/', 'entry.js');
-var dealsPath = path.resolve(__dirname, 'app/deals/', 'entry.js');
-var hot = 'webpack/hot/dev-server';
-var dev-server = 'webpack-dev-server/client?http://localhost:8080';
-var config = {
+import Webpack from 'webpack';
+import path from 'path';
+let nodeModulesPath = path.resolve(__dirname, 'node_modules');
+let buildPath = path.resolve(__dirname, 'public', 'build');
+
+//Entry points
+let bannerPath = path.resolve(__dirname, 'app/banners/', 'entry.js');
+let emailPath = path.resolve(__dirname, 'app/email/', 'entry.js');
+let dealsPath = path.resolve(__dirname, 'app/deals/', 'entry.js');
+let mainPath = path.resolve(__dirname, 'app/shared/', 'entry.js');
+
+let hot = 'webpack/hot/dev-server';
+let devServer = 'webpack-dev-server/client?http://localhost:8080';
+let config = {
 
   // Makes sure errors in console map to the correct file
   // and line number
   devtool: 'eval',
-  entry: {
-    banners : [hot, dev-server, bannerPath],
-    deals : [hot, dev-server, dealsPath],
-    email : [hot, dev-server, emailPath]
-  },
-  // entry: [
+  // entry: {
+  //   banners : [hot, devServer, bannerPath],
+  //   deals : [hot, devServer, dealsPath],
+  //   email : [hot, devServer, emailPath]
+  // },
+  entry: [
 
-  //   banners: 
-  //   // For hot style updates
-  //   'webpack/hot/dev-server', 
-
-  //   // The script refreshing the browser on hot updates
-  //   'webpack-dev-server/client?http://localhost:8080', 
-
-  //   // Our application
-  //   mainPath],
+    'webpack-dev-server/client?http://localhost:3001',
+    'webpack/hot/only-dev-server',
+    // Our application
+    mainPath],
   output: {
 
     // We need to give Webpack a path. It does not actually need it,
@@ -36,11 +35,14 @@ var config = {
     // as that points to where the files will eventually be bundled
     // in production
     path: buildPath,
-    filename: '[name].bundle.js',
+    filename: 'bundle.js',
 
     // Everything related to Webpack should go through a build path,
     // localhost:3000/build. That makes proxying easier to handle
-    publicPath: '/build/'
+    publicPath: 'http://localhost:3001/build/'
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
   },
   module: {
 
@@ -50,7 +52,7 @@ var config = {
     // ES6/7 syntax and JSX transpiling out of the box
     {
       test: /\.js$/,
-      loader: 'babel',
+      loaders: ['react-hot', 'babel-loader?experimental'],
       exclude: [nodeModulesPath]
     },
 
@@ -69,4 +71,5 @@ var config = {
   plugins: [new Webpack.HotModuleReplacementPlugin()]
 };
 
-module.exports = config;
+export default config;
+//module.exports = config;

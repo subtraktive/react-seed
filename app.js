@@ -6,18 +6,23 @@ import Router from "react-router";
 import banners from './app/banners';
 import deals from './app/deals';
 import email from './app/email';
+import shared from './app/shared';
 import path from 'path';
 import httpProxy from 'http-proxy';
-
+import webpack from "webpack";
+import WebpackDevServer from 'webpack-dev-server';
+import config from './webpack.config.js'
 
 const app = express();
 let proxy = httpProxy.createProxyServer({
 	changeOrigin: true
 }); 
 
-app.use(banners);
-app.use(deals);
-app.use(email);
+
+
+app.use(shared);
+// app.use(deals);
+// app.use(email);
 
 let isProduction = process.env.NODE_ENV === 'production';
 let port = isProduction ? 8080 : 3000;
@@ -26,7 +31,7 @@ let publicPath = path.resolve(__dirname, 'public');
 //app.use(express.static(publicPath));
 
 if (!isProduction) {
-
+	
   // We require the bundler inside the if block because
   // it is only needed in a development environment. Later
   // you will see why this is a good idea
@@ -48,6 +53,21 @@ if (!isProduction) {
 // server when webpack is bundling
 proxy.on('error', function(e) {
   console.log('Could not connect to proxy, please try again...');
+});
+
+let server = new WebpackDevServer(webpack(config), {
+	hot: true,
+	quiet: false,
+	noInfo: true,
+	publicPath: "/build/",
+	stats: {colors: true}
+});
+
+server.listen(3001, "localhost", (err, result) => {
+	if(err){
+		console.log("webpack server has some error - ", err);
+	}
+	console.log("Webpack listening at 3001");
 });
 
 app.listen(port, function () {
