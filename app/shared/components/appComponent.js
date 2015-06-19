@@ -2,6 +2,10 @@
 
 import React from 'react';
 import { Router, Route, Link, RouteHandler } from 'react-router';
+if(process.env.BROWSER){
+	require('../../stylesheets/base.less');
+}
+
 
 export default React.createClass({
 	render(){

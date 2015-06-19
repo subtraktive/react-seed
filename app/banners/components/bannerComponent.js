@@ -25,7 +25,6 @@ export default React.createClass({
 	render(){
 		return(
 			<div>
-				
 				<h2>Banner component</h2>
 			</div>
 		)

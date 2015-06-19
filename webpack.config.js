@@ -1,5 +1,6 @@
 import Webpack from 'webpack';
 import path from 'path';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 let nodeModulesPath = path.resolve(__dirname, 'node_modules');
 let buildPath = path.resolve(__dirname, 'public', 'build');
 
@@ -7,7 +8,7 @@ let buildPath = path.resolve(__dirname, 'public', 'build');
 let bannerPath = path.resolve(__dirname, 'app/banners/', 'entry.js');
 let emailPath = path.resolve(__dirname, 'app/email/', 'entry.js');
 let dealsPath = path.resolve(__dirname, 'app/deals/', 'entry.js');
-let mainPath = path.resolve(__dirname, 'app/shared/', 'entry.js');
+let mainPath = path.resolve(__dirname, 'app', 'main.js');
 
 let hot = 'webpack/hot/dev-server';
 let devServer = 'webpack-dev-server/client?http://localhost:8080';
@@ -59,8 +60,8 @@ let config = {
     // Let us also add the style-loader and css-loader, which you can
     // expand with less-loader etc.
     {
-      test: /\.css$/,
-      loader: 'style!css'
+      test: /\.less$/,
+      loader: ExtractTextPlugin.extract("css!less")
     }
 
     ]
@@ -68,7 +69,18 @@ let config = {
 
   // We have to manually add the Hot Replacement plugin when running
   // from Node
-  plugins: [new Webpack.HotModuleReplacementPlugin()]
+  plugins: [
+    new Webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin('style.css', {
+      allChunks: true
+    }),
+    new Webpack.DefinePlugin({
+      "process.env": {
+        BROWSER: JSON.stringify(true)
+      }
+    })
+    //new ExtractTextPlugin('build/style.css')
+  ]
 };
 
 export default config;

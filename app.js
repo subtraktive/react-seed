@@ -23,6 +23,7 @@ let proxy = httpProxy.createProxyServer({
 app.use(shared);
 // app.use(deals);
 // app.use(email);
+delete process.env.BROWSER;
 
 let isProduction = process.env.NODE_ENV === 'production';
 let port = isProduction ? 8080 : 3000;
