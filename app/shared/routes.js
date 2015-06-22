@@ -4,16 +4,19 @@ import Router from "react-router";
 let Route = Router.Route;
 import React from "react";
 
-import Banner from "../banners/components/bannerComponent";
-import Deals from "../deals/components/dealsComponent";
-import Email from "../email/components/emailComponent";
 import App from "./components/appComponent";
+import Deals from "../deals/components/dealsComponent";
+import Request from "../requestForm/components/requestForm";
+import Calandar from "../calandar/components/calandarComponent";
+import Summary from "../summary/components/summaryComponent";
+import Allocation from "../allocation/components/allocationComponent";
 
 export default (  
 	<Route handler={ App } path="/">
-		<Route path="/banners" handler={Banner} />
-		<Route path="/deals" handler={Deals} />
-		<Route path="/email" handler={Email} />
+		<Route path="/summary" handler={Summary} />
+		<Route path="/requestForm" handler={Request} />
+		<Route path="/calandar" handler={Calandar} />
+		<Route path="/allocation" handler={Allocation} />
+		<Route path="/deal" handler={Deals} />
 	</Route>
-
 );

@@ -1,0 +1,53 @@
+*
+{
+	box-sizing: border-box;
+}
+
+body,
+html{
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+}
+
+.container{
+	margin: 0 auto;
+	width: 1170px;
+}
+
+.clearfix:after
+{
+	content:".";
+	display:block;
+	height:0;
+	clear:both;
+	visibility:hidden
+}
+	* html .clearfix
+{
+	height:1%
+}
+.clearfix
+{
+	display:block
+}
+
+.header{
+	background: @black;
+	padding: 20px;
+	ul{
+		list-style: none;
+		padding: 0;
+		font-size: 14px;
+		li{
+			float: left;
+			margin: 0 10px;
+			a{
+				color: @white;
+				text-decoration: none;
+			}
+		}
+	}
+	
+	
+}

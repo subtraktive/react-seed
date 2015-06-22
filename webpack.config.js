@@ -49,26 +49,21 @@ let config = {
 
     loaders: [
 
-    // I highly recommend using the babel-loader as it gives you
-    // ES6/7 syntax and JSX transpiling out of the box
     {
       test: /\.js$/,
       loaders: ['react-hot', 'babel-loader?experimental'],
       exclude: [nodeModulesPath]
     },
 
-    // Let us also add the style-loader and css-loader, which you can
-    // expand with less-loader etc.
+    
     {
       test: /\.less$/,
-      loader: ExtractTextPlugin.extract("css!less")
+      loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
     }
 
     ]
   },
 
-  // We have to manually add the Hot Replacement plugin when running
-  // from Node
   plugins: [
     new Webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin('style.css', {

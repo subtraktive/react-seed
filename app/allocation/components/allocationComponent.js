@@ -9,7 +9,7 @@ export default React.createClass({
 	render(){
 		return(
 			<div>
-				<h2>Email Component goes here and there</h2>
+				<h2>Allocation goes here</h2>
 			</div>
 		)
 	}

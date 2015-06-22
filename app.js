@@ -3,9 +3,9 @@
 import express from "express";  
 import React from "react";  
 import Router from "react-router";  
-import banners from './app/banners';
-import deals from './app/deals';
-import email from './app/email';
+// import banners from './app/banners';
+// import deals from './app/deals';
+// import email from './app/email';
 import shared from './app/shared';
 import path from 'path';
 import httpProxy from 'http-proxy';

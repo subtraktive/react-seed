@@ -1,0 +1,14 @@
+/* TO DO */
+
+- Setup webpack for production
+- Add multiple entry points in webpack
+
+
+/* JS and LESS guidelines */
+
+- Comment your code, explain what your code does
+- Use single tab for both JS and LESS and use it consistently 
+- Create separate LESS files for each component
+- Use LESS variables, MIXINS whenerver possible
+- Use ES6 everywhere, use arrow functions in place of anonymous functions
+- Write generic utils, reusable components inside shared folder
